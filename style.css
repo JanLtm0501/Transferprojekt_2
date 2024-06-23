@@ -247,18 +247,5 @@ section#hero {
 }
 
 
-/* Neue CSS-Stile für den Mauspunkt */
-.mouse-pointer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 10px; /* Größe des Punkts anpassen */
-    height: 10px;
-    background-color: white; /* Farbe des Punkts */
-    border-radius: 50%; /* Kreisform */
-    pointer-events: none; /* Keine Interaktion mit dem Punkt */
-    z-index: 9999; /* Sicherstellen, dass der Punkt über allem liegt */
-    display: none; /* Standardmäßig ausblenden */
-}
 
 

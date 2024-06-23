@@ -63,8 +63,17 @@
             </div>
         </div>
     </main>
-    <!-- Mauspunkt-Div -->
-    <div class="mouse-pointer"></div>
+    
+    <!-- Cursor -->
+    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
+<script src="https://unpkg.com/kursor"></script>
+<script>
+	new kursor({
+		type: 1,
+		color: "#FF0000",
+		removeDefaultCursor: false,	
+	})
+</script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const calendarDays = document.querySelector('.calendar-days');
@@ -115,17 +124,6 @@
             });
 
             loadCalendar();
-        });
-
-
-        // Mauspunkt folgt der Mausposition
-        document.addEventListener('mousemove', function(e) {
-            const mouseX = e.pageX;
-            const mouseY = e.pageY;
-
-            document.querySelector('.mouse-pointer').style.left = mouseX + 'px';
-            document.querySelector('.mouse-pointer').style.top = mouseY + 'px';
-            document.querySelector('.mouse-pointer').style.display = 'block'; // Mauspunkt anzeigen
         });
     </script>
 </body>
