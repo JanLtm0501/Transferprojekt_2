@@ -4,27 +4,88 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Questions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css"/>
+    <title>FAQ</title>
 </head>
 <body>
-    <h2 id="question1" class="hidden">Frage 1: Was ist dein aktueller Kontostand?</h2>
-    <h2 id="question2" class="hidden">Frage 2: Was sind deine Fixkosten?</h2>
-    <h2 id="question3" class="hidden">Frage 3: Was sind deine variablen Kosten?</h2>
-    <h2 id="question4" class="hidden">Frage 4: Wie viel möchtest du im Monat sparen?</h2>
+    <header>
+        <div class="navbar">
+            <div class="logo"><a href="index.html">Money</a></div>
+            <ul class="links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="calender">Calender</a></li>
+                <li><a href="faq.html" class="active">FAQ</a></li>
+                <li><a href="impressum">Impressum</a></li>
+            </ul>
+            <a href="#" class="action_btn">Get Started</a>
+            <div class="toggle_btn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+            <!-- Dropdown-Menü hier -->
+            <div class="dropdown_menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about">About</a></li>
+                <li><a href="calender">Calender</a></li>
+                <li><a href="faq.html" class="active">FAQ</a></li>
+                <li><a href="impressum">Impressum</a></li>
+                <li><a href="#" class="action_btn">Get Started</a></li>
+            </div>
+    </header>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function showQuestions() {
-                document.getElementById('question1').classList.remove('hidden');
-                document.getElementById('question2').classList.remove('hidden');
-                document.getElementById('question3').classList.remove('hidden');
-                document.getElementById('question4').classList.remove('hidden');
-            }
+<main>
+    <section id="faq">
+        <div class="faq_content">
+            <h1>Häufige Fragen:</h1>
+            <p>Kommen noch weitere Tools?</p>
+        </div>
+    </section>
+</main>
 
-            document.querySelector('.action_btn').addEventListener('click', showQuestions);
-        });
-    </script>
+<script>
+    // Script Calculatora
+    function savingsCalculator() {
+        alert("Sparplan gestartet. (Klicke auf OK, um fortzufahren)");
 
-    <a href="#" class="action_btn">Get Started</a>
+        var currentSavings = parseInt(prompt("Was ist dein aktueller Kontostand?"));
+        // Überprüfen, ob Abbrechen geklickt wurde
+        if (currentSavings === null || isNaN(currentSavings)) {
+            return; // Beende die Funktion
+        }
+        var monthlySavings = parseInt(prompt("Wie viel Geld kannst du monatlich bei Seite legen?"));
+        if (monthlySavings === null || isNaN(monthlySavings)) {
+            return;
+        }
+        var target = prompt("Was ist dein Sparziel? (z.B. Auto, Urlaub, etc.)");
+        if (target === null) {
+            return;
+        }
+        var targetSavings = parseInt(prompt("Wie viel Geld benötigst du für dein Sparziel? (in Euro)"));
+        if (targetSavings === null || isNaN(targetSavings)) {
+            return;
+        }
+
+        var months = 0;
+
+        while (currentSavings < targetSavings) {
+            currentSavings += monthlySavings;
+            months++;
+        }
+
+        alert("Es dauert " + months + " Monate, um dein Sparziel: " + target + " zu erreichen.");
+    }
+
+    // Die Funktion aufrufen, wenn auf den "Get Started" Button geklickt wird
+    document.querySelector('.action_btn').addEventListener('click', function(e) {
+        e.preventDefault(); // Verhindert das Standardverhalten des Links
+
+        // Führe den Sparplan-Rechner aus
+        savingsCalculator();
+    });
+</script>
+
+
 </body>
 </html>

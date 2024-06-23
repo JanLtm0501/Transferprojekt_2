@@ -27,14 +27,10 @@ a:hover {
     color: #f1c40f;
 }
 
-
-
-
-
-/*Header*/
+/* Header */
 header {
     position: relative;
-    padding: 0 2 rem;
+    padding: 0 2rem;
 }
 
 .navbar {
@@ -79,7 +75,7 @@ header {
     font-size: 1.3rem;
     font-weight: bold;
     cursor: pointer;
-    transition: scale 0.2 ease;
+    transition: scale 0.2s ease;
 }
 
 .action_btn:hover {
@@ -91,11 +87,7 @@ header {
     scale: 0.95;
 }
 
-
-
-
-
-/*Dropdown Menu*/
+/* Dropdown Menu */
 .dropdown_menu {
     display: none;
     position: absolute;
@@ -127,10 +119,7 @@ header {
     justify-content: center;
 }
 
-
-
-
-/*Hero*/
+/* Hero */
 section#hero {
     height: calc(100vh - 60px); /* Höhe des Hero-Bereichs */
     display: flex;
@@ -147,12 +136,36 @@ section#hero {
     text-align: center;
 }
 
+/* Impressum */
+.impressum-container {
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    text-align: center;
+    margin: auto;
+}
 
+.impressum-container h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
 
+.impressum-container h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #555;
+}
 
+.impressum-container p {
+    margin: 10px 0;
+    font-size: 1em;
+    color: #666;
+}
 
-
-/*Responsive Design*/
+/* Responsive Design */
 @media (max-width: 992px) {
     .navbar .links,
     .navbar .action_btn {
@@ -173,135 +186,4 @@ section#hero {
         left: 2rem;
         width: unset;
     }
-}
-
-/*Kalender*/
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 15px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    margin: 0 auto;
-}
-
-.navbar .logo a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.5em;
-}
-
-.navbar .links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.navbar .links li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1em;
-}
-
-.navbar .links li a.active {
-    color: #f39c12;
-}
-
-.navbar .action_btn {
-    background-color: #f39c12;
-    padding: 10px 20px;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-}
-
-.toggle_btn {
-    display: none;
-}
-
-.dropdown_menu {
-    display: none;
-}
-
-main {
-    margin-top: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.calendar {
-    width: 350px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #f39c12;
-    color: #fff;
-}
-
-.calendar-body {
-    padding: 20px;
-}
-
-.calendar-week-day {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    color: #555;
-}
-
-.calendar-week-day div {
-    width: calc(100% / 7);
-    text-align: center;
-}
-
-.calendar-days {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.calendar-days div {
-    width: calc(100% / 7);
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.calendar-days div:nth-child(7n + 1) {
-    color: red;
-}
-
-.calendar-days div:hover {
-    background-color: #f39c12;
-    color: #fff;
-    cursor: pointer;
 }

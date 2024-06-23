@@ -6,27 +6,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css"/>
-    <title>Calender</title>
+    <title>Calendar</title>
 </head>
 <body>
     <header>
         <div class="navbar">
-            <div class="logo"><a href="index.html">Wolfie</a></div>
+            <div class="logo"><a href="index.html">Money</a></div>
             <ul class="links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="calender.html" class="active">Calender</a></li>
-                <li><a href="impressum.html">Impressum</a></li>
+                <li><a href="calendar.html" class="active">Calendar</a></li>
                 <li><a href="faq.html">FAQ</a></li>
+                <li><a href="impressum.html">Impressum</a></li>
             </ul>
             <a href="#" class="action_btn">Get Started</a>
             <div class="toggle_btn">
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
-        <!-- Dropdown-Menü hier -->
+        
         <div class="dropdown_menu">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="calender.html" class="active">Calender</a></li>
-            <li><a href="impressum.html
+            <li><a href="calendar.html" class="active">Calendar</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="impressum.html">Impressum</a></li>
+        </div>
+    </header>
+    <main>
+        <div class="calendar">
+            <div class="calendar-header">
+                <span class="month-picker" id="month-picker">February</span>
+                <div class="year-picker">
+                    <span class="year-change" id="prev-year">
+                        <pre></pre>
+                    </span>
+                    <span id="year">2024</span>
+                    <span class="year-change" id="next-year">
+                        <pre>></pre>
+                    </span>
+                </div>
+            </div>
+            <div class="calendar-body">
+                <div class="calendar-week-day">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+                <div class="calendar-days">
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarDays = document.querySelector('.calendar-days');
+            const monthPicker = document.getElementById('month-picker');
+            const prevYear = document.getElementById('prev-year');
+            const nextYear = document.getElementById('next-year');
+            const yearDisplay = document.getElementById('year');
+
+            const months = [
+                'January', 'February', 'March', 'April', 'May', 'June', 
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+
+            let currentMonth = new Date().getMonth();
+            let currentYear = new Date().getFullYear();
+
+            function loadCalendar() {
+                const firstDay = new Date(currentYear, currentMonth, 1);
+                const lastDay = new Date(currentYear, currentMonth + 1, 0);
+
+                const days = [];
+                for (let i = 0; i < firstDay.getDay(); i++) {
+                    days.push('');
+                }
+                for (let i = 1; i <= lastDay.getDate(); i++) {
+                    days.push(i);
+                }
+
+                calendarDays.innerHTML = '';
+                days.forEach(day => {
+                    const dayElement = document.createElement('div');
+                    dayElement.textContent = day;
+                    calendarDays.appendChild(dayElement);
+                });
+
+                monthPicker.textContent = months[currentMonth];
+                yearDisplay.textContent = currentYear;
+            }
+
+            prevYear.addEventListener('click', () => {
+                currentYear--;
+                loadCalendar();
+            });
+
+            nextYear.addEventListener('click', () => {
+                currentYear++;
+                loadCalendar();
+            });
+
+            loadCalendar();
+        });
+    </script>
+</body>
+</html>

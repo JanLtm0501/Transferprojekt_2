@@ -13,74 +13,99 @@
         <div class="navbar">
             <div class="logo"><a href="#">Money</a></div>
             <ul class="links">
-                <li><a href="hero" class="active">Home</a></li>
-                <li><a href="about">About</a></li>
-                <li><a href="calender">Calender</a></li>
-                <li><a href="impressum">Impressum</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="impressum.html">Impressum</a></li>
             </ul>
             <a href="#" class="action_btn">Get Started</a>
             <div class="toggle_btn">
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
-            <!-- Dropdown-Menü hier -->
-            <div class="dropdown_menu">
-                <li><a href="hero">Home</a></li>
-                <li><a href="about">About</a></li>
-                <li><a href="calender">Calender</a></li>
-                <li><a href="contact">Contact</a></li>
+        <!-- Dropdown-Menü hier -->
+        <div class="dropdown_menu">
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="impressum.html">Impressum</a></li>
                 <li><a href="#" class="action_btn">Get Started</a></li>
-            </div>
+            </ul>
+        </div>
     </header>
 
-<main>
-    <section id="hero">
-        <div class="hero_content">
-            <h1>Welcome</h1>
-            <p>Money is a platform that helps you to manage your finances.</p>
-        </div>
-    </section>
-</main>
+    <main>
+        <section id="hero">
+            <div class="hero_content">
+                <h1>Welcome</h1>
+                <p>Money is a platform that helps you manage your finances.</p>
+            </div>
+        </section>
+    </main>
 
-<script>
-    // Script Calculator
-    function savingsCalculator() {
-        alert("Sparplan gestartet. (Klicke auf OK, um fortzufahren)");
+    <script>
+        // Script Calculator
+        function savingsCalculator() {
+            alert("Savings plan started. Click OK to continue.");
 
-        var currentSavings = parseInt(prompt("Was ist dein aktueller Kontostand?"));
-        // Überprüfen, ob Abbrechen geklickt wurde
-        if (currentSavings === null || isNaN(currentSavings)) {
-            return; // Beende die Funktion
+            var currentSavings = parseInt(prompt("What is your current savings amount?"));
+            if (isNaN(currentSavings)) {
+                return;
+            }
+            
+            var monthlySavings = parseInt(prompt("How much can you save monthly?"));
+            if (isNaN(monthlySavings)) {
+                return;
+            }
+            
+            var target = prompt("What is your savings goal? (e.g., Car, Vacation, etc.)");
+            if (!target) {
+                return;
+            }
+            
+            var targetSavings = parseInt(prompt("How much money do you need for your savings goal? (in Euro)"));
+            if (isNaN(targetSavings)) {
+                return;
+            }
+
+            var months = 0;
+
+            while (currentSavings < targetSavings) {
+                currentSavings += monthlySavings;
+                months++;
+            }
+
+            alert("It will take " + months + " months to reach your savings goal: " + target + ".");
         }
-        var monthlySavings = parseInt(prompt("Wie viel Geld kannst du monatlich bei Seite legen?"));
-        if (monthlySavings === null || isNaN(monthlySavings)) {
-            return;
-        }
-        var target = prompt("Was ist dein Sparziel? (z.B. Auto, Urlaub, etc.)");
-        if (target === null) {
-            return;
-        }
-        var targetSavings = parseInt(prompt("Wie viel Geld benötigst du für dein Sparziel? (in Euro)"));
-        if (targetSavings === null || isNaN(targetSavings)) {
-            return;
-        }
 
-        var months = 0;
+        // Call the function when "Get Started" button is clicked
+        document.querySelector('.action_btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            savingsCalculator();
+        });
 
-        while (currentSavings < targetSavings) {
-            currentSavings += monthlySavings;
-            months++;
-        }
+        // Toggle dropdown menu
+        const toggleBtn = document.querySelector('.toggle_btn');
+        const dropDownMenu = document.querySelector('.dropdown_menu');
 
-        alert("Es dauert " + months + " Monate, um dein Sparziel: " + target + " zu erreichen.");
-    }
+        toggleBtn.onclick = function () {
+            dropDownMenu.classList.toggle('open');
+        };
 
-    // Die Funktion aufrufen, wenn auf den "Get Started" Button geklickt wird
-    document.querySelector('.action_btn').addEventListener('click', function() {
-        savingsCalculator();
-    });
-</script>
+        // Mark the active link
+        const links = document.querySelectorAll('.links a');
+        const currentLocation = location.pathname;
 
-
+        links.forEach(link => {
+            if (link.getAttribute('href') === currentLocation) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
