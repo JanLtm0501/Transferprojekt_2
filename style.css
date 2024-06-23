@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
+    cursor: none; /* Maus als Punkt ausblenden */
 }
 
 body {
@@ -135,8 +136,8 @@ section#hero {
     text-align: center;
 }
 
-/* Impressum */
-.impressum-container {
+/* About */
+.about-container {
     max-width: 600px;
     padding: 30px;
     border-radius: 15px;
@@ -146,24 +147,23 @@ section#hero {
     margin: auto;
 }
 
-.impressum-container h1 {
+.about-container h1 {
     font-size: 2em;
     margin-bottom: 20px;
     color: #333;
 }
 
-.impressum-container h2 {
+.about-container h2 {
     font-size: 1.5em;
     margin-bottom: 15px;
     color: #555;
 }
 
-.impressum-container p {
+.about-container p {
     margin: 10px 0;
     font-size: 1em;
     color: #666;
 }
-
 
 /* FAQ */
 .faq-container {
@@ -194,7 +194,34 @@ section#hero {
     color: #666;
 }
 
+/* Impressum */
+.impressum-container {
+    max-width: 600px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    text-align: center;
+    margin: auto;
+}
 
+.impressum-container h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.impressum-container h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.impressum-container p {
+    margin: 10px 0;
+    font-size: 1em;
+    color: #666;
+}
 
 /* Responsive Design */
 @media (max-width: 992px) {
@@ -218,3 +245,20 @@ section#hero {
         width: unset;
     }
 }
+
+
+/* Neue CSS-Stile für den Mauspunkt */
+.mouse-pointer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 10px; /* Größe des Punkts anpassen */
+    height: 10px;
+    background-color: white; /* Farbe des Punkts */
+    border-radius: 50%; /* Kreisform */
+    pointer-events: none; /* Keine Interaktion mit dem Punkt */
+    z-index: 9999; /* Sicherstellen, dass der Punkt über allem liegt */
+    display: none; /* Standardmäßig ausblenden */
+}
+
+

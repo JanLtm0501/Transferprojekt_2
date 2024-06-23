@@ -55,6 +55,9 @@
         </div>
     </section>
 
+    <!-- Mauspunkt-Div -->
+    <div class="mouse-pointer"></div>
+
     <script>
         // Script Calculator
         function savingsCalculator() {
@@ -114,6 +117,17 @@
             } else {
                 link.classList.remove('active');
             }
+        });
+
+
+        // Mauspunkt folgt der Mausposition
+        document.addEventListener('mousemove', function(e) {
+            const mouseX = e.pageX;
+            const mouseY = e.pageY;
+
+            document.querySelector('.mouse-pointer').style.left = mouseX + 'px';
+            document.querySelector('.mouse-pointer').style.top = mouseY + 'px';
+            document.querySelector('.mouse-pointer').style.display = 'block'; // Mauspunkt anzeigen
         });
     </script>
 </body>
