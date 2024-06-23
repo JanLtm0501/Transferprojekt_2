@@ -11,81 +11,123 @@
 <body>
     <header>
         <div class="navbar">
-            <div class="logo"><a href="index.html">Money</a></div>
+            <div class="logo"><a href="#">Money</a></div>
             <ul class="links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about">About</a></li>
-                <li><a href="calender">Calender</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="calender.html">Calendar</a></li>
                 <li><a href="faq.html" class="active">FAQ</a></li>
-                <li><a href="impressum">Impressum</a></li>
+                <li><a href="impressum.html">Impressum</a></li>
             </ul>
             <a href="#" class="action_btn">Get Started</a>
             <div class="toggle_btn">
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
-            <!-- Dropdown-Menü hier -->
-            <div class="dropdown_menu">
+        <!-- Dropdown-Menü hier -->
+        <div class="dropdown_menu">
+            <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about">About</a></li>
-                <li><a href="calender">Calender</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="calender.html">Calendar</a></li>
                 <li><a href="faq.html" class="active">FAQ</a></li>
-                <li><a href="impressum">Impressum</a></li>
+                <li><a href="impressum.html">Impressum</a></li>
                 <li><a href="#" class="action_btn">Get Started</a></li>
-            </div>
+            </ul>
+        </div>
     </header>
 
-<main>
     <section id="faq">
-        <div class="faq_content">
-            <h1>Häufige Fragen:</h1>
-            <p>Kommen noch weitere Tools?</p>
+        <div class="faq-container">
+            <h1>FAQ</h1>
+Wie eröffne ich ein Konto bei Money?
+<br>
+Es ist keine Anmeldung notwendig.
+<br>
+<br>
+Welche Gebühren fallen bei der Nutzung von Money an?
+<br>
+Bei Money fallen keine Gebühren an. Unsere Plattform ist kostenfrei für alle Nutzer. Sie können alle Funktionen und Services ohne versteckte Kosten nutzen.
+<br>
+<br>    
+Wie sicher sind meine Daten auf Money?
+<br>
+Ihre Sicherheit ist unsere oberste Priorität. Da keine persönlichen Daten zur Eröffnung eines Kontos erforderlich sind, sind Ihre Daten automatisch geschützt.
+<br>
+<br>
+Gibt es eine mobile App für Money?
+<br>
+Derzeit bieten wir noch keine mobile App an. Wir arbeiten jedoch an der Entwicklung einer benutzerfreundlichen App, die Ihnen bald zur Verfügung stehen wird. Bleiben Sie auf unserer Webseite auf dem Laufenden, um Updates zu erhalten.
+<br>
+<br>
+Kann ich bei Money automatische Sparpläne einrichten?
+<br>
+Ja, bei Money können Sie ganz einfach automatische Sparpläne einrichten. 
+</p>
         </div>
     </section>
-</main>
+    
 
-<script>
-    // Script Calculatora
-    function savingsCalculator() {
-        alert("Sparplan gestartet. (Klicke auf OK, um fortzufahren)");
+    <script>
+        // Script Calculator
+        function savingsCalculator() {
+            alert("Savings plan started. Click OK to continue.");
 
-        var currentSavings = parseInt(prompt("Was ist dein aktueller Kontostand?"));
-        // Überprüfen, ob Abbrechen geklickt wurde
-        if (currentSavings === null || isNaN(currentSavings)) {
-            return; // Beende die Funktion
+            var currentSavings = parseInt(prompt("What is your current savings amount?"));
+            if (isNaN(currentSavings)) {
+                return;
+            }
+            
+            var monthlySavings = parseInt(prompt("How much can you save monthly?"));
+            if (isNaN(monthlySavings)) {
+                return;
+            }
+            
+            var target = prompt("What is your savings goal? (e.g., Car, Vacation, etc.)");
+            if (!target) {
+                return;
+            }
+            
+            var targetSavings = parseInt(prompt("How much money do you need for your savings goal? (in Euro)"));
+            if (isNaN(targetSavings)) {
+                return;
+            }
+
+            var months = 0;
+
+            while (currentSavings < targetSavings) {
+                currentSavings += monthlySavings;
+                months++;
+            }
+
+            alert("It will take " + months + " months to reach your savings goal: " + target + ".");
         }
-        var monthlySavings = parseInt(prompt("Wie viel Geld kannst du monatlich bei Seite legen?"));
-        if (monthlySavings === null || isNaN(monthlySavings)) {
-            return;
-        }
-        var target = prompt("Was ist dein Sparziel? (z.B. Auto, Urlaub, etc.)");
-        if (target === null) {
-            return;
-        }
-        var targetSavings = parseInt(prompt("Wie viel Geld benötigst du für dein Sparziel? (in Euro)"));
-        if (targetSavings === null || isNaN(targetSavings)) {
-            return;
-        }
 
-        var months = 0;
+        // Call the function when "Get Started" button is clicked
+        document.querySelector('.action_btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            savingsCalculator();
+        });
 
-        while (currentSavings < targetSavings) {
-            currentSavings += monthlySavings;
-            months++;
-        }
+        // Toggle dropdown menu
+        const toggleBtn = document.querySelector('.toggle_btn');
+        const dropDownMenu = document.querySelector('.dropdown_menu');
 
-        alert("Es dauert " + months + " Monate, um dein Sparziel: " + target + " zu erreichen.");
-    }
+        toggleBtn.onclick = function () {
+            dropDownMenu.classList.toggle('open');
+        };
 
-    // Die Funktion aufrufen, wenn auf den "Get Started" Button geklickt wird
-    document.querySelector('.action_btn').addEventListener('click', function(e) {
-        e.preventDefault(); // Verhindert das Standardverhalten des Links
+        // Mark the active link
+        const links = document.querySelectorAll('.links a');
+        const currentLocation = location.pathname;
 
-        // Führe den Sparplan-Rechner aus
-        savingsCalculator();
-    });
-</script>
-
-
+        links.forEach(link => {
+            if (link.getAttribute('href') === currentLocation) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>

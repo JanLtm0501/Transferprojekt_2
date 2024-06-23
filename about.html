@@ -44,17 +44,52 @@
     </main>
 
     <script>
+        // Script Calculator
+        function savingsCalculator() {
+            alert("Savings plan started. Click OK to continue.");
+
+            var currentSavings = parseInt(prompt("What is your current savings amount?"));
+            if (isNaN(currentSavings)) {
+                return;
+            }
+            
+            var monthlySavings = parseInt(prompt("How much can you save monthly?"));
+            if (isNaN(monthlySavings)) {
+                return;
+            }
+            
+            var target = prompt("What is your savings goal? (e.g., Car, Vacation, etc.)");
+            if (!target) {
+                return;
+            }
+            
+            var targetSavings = parseInt(prompt("How much money do you need for your savings goal? (in Euro)"));
+            if (isNaN(targetSavings)) {
+                return;
+            }
+
+            var months = 0;
+
+            while (currentSavings < targetSavings) {
+                currentSavings += monthlySavings;
+                months++;
+            }
+
+            alert("It will take " + months + " months to reach your savings goal: " + target + ".");
+        }
+
+        // Call the function when "Get Started" button is clicked
+        document.querySelector('.action_btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            savingsCalculator();
+        });
+
+        // Toggle dropdown menu
         const toggleBtn = document.querySelector('.toggle_btn');
-        const toggleBtnIcon = document.querySelector('.toggle_btn i');
         const dropDownMenu = document.querySelector('.dropdown_menu');
 
         toggleBtn.onclick = function () {
             dropDownMenu.classList.toggle('open');
-            const isOpen = dropDownMenu.classList.contains('open');
-
-            toggleBtnIcon.classList = isOpen
-                ? 'fa-solid fa-xmark'
-                : 'fa-solid fa-bars';
         };
 
         // Mark the active link
@@ -64,6 +99,8 @@
         links.forEach(link => {
             if (link.getAttribute('href') === currentLocation) {
                 link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
         });
     </script>
