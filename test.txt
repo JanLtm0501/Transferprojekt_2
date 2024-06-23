@@ -1,0 +1,38 @@
+get startet:
+
+Wenn man auf get started klickt soll der Sparplan starten mit einer Folge an Fragen:
+Sparplan:
+Was ist dein aktueller Kontostand?
+Wie viel Geld kannst du monatlich bei Seite legen?
+Was ist dein Sparziel und wieviel benötigst du für dein Ziel?
+->Zeit berechenen bis man dieses Ziel erreicht hat
+
+BSP:
+2000
+100
+20000
+
+function savingsCalculator() {
+    alert("Sparplan gestartet.");
+    
+    var currentSavings = parseInt(prompt("Was ist dein aktueller Kontostand?"));
+    var monthlySavings = parseInt(prompt("Wie viel Geld kannst du monatlich bei Seite legen?"));
+    var targetSavings = parseInt(prompt("Was ist dein Sparziel und wie viel benötigst du für dein Ziel?"));
+    
+    var months = 0;
+
+    while (currentSavings < targetSavings) {
+        currentSavings += monthlySavings;
+        months++;
+    }
+
+    alert("Es dauert " + months + " Monate, um " + targetSavings + " Euro zu erreichen.");
+}
+
+savingsCalculator();
+
+
+
+
+Kalender:
+Andreas macht dann einen Kalender wo man Sachen eingeben kann. Z.B. 15.04.2026 Sparziel Auto erreicht
