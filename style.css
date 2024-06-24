@@ -248,4 +248,100 @@ section#hero {
 
 
 
+/*Kalender*/
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.navbar .links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar .links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.toggle_btn {
+    display: none;
+}
+
+.dropdown_menu {
+    display: none;
+}
+
+main {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.calendar {
+    width: 350px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f39c12;
+    color: #fff;
+}
+
+.calendar-body {
+    padding: 20px;
+}
+
+.calendar-week-day {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.calendar-week-day div {
+    width: calc(100% / 7);
+    text-align: center;
+}
+
+.calendar-days {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.calendar-days div {
+    width: calc(100% / 7);
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.calendar-days div:nth-child(7n + 1) {
+    color: red;
+}
+
+.calendar-days div:hover {
+    background-color: #f39c12;
+    color: #fff;
+    cursor: pointer;
+}
+
 
