@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css"/>
+    <!-- Cursor -->
+    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
     <title>Calendar</title>
 </head>
 <body>
@@ -24,7 +26,7 @@
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
-        
+        <!-- Dropdown-Menü hier -->
         <div class="dropdown_menu">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
@@ -36,15 +38,13 @@
     <main>
         <div class="calendar">
             <div class="calendar-header">
+                <span class="month-change" id="prev-month">&lt;</span>
                 <span class="month-picker" id="month-picker">February</span>
+                <span class="month-change" id="next-month">&gt;</span>
                 <div class="year-picker">
-                    <span class="year-change" id="prev-year">
-                        <pre><</pre>
-                    </span>
+                    <span class="year-change" id="prev-year">&lt;</span>
                     <span id="year">2024</span>
-                    <span class="year-change" id="next-year">
-                        <pre>></pre>
-                    </span>
+                    <span class="year-change" id="next-year">&gt;</span>
                 </div>
             </div>
             <div class="calendar-body">
@@ -58,18 +58,41 @@
                     <div>Sat</div>
                 </div>
                 <div class="calendar-days">
-                    
+                    <!-- Calendar days will be generated here -->
                 </div>
             </div>
         </div>
+        <!-- Modal für Termineingabe -->
+        <div class="modal" id="event-modal">
+            <div class="modal-content">
+                <span class="close-btn" id="close-btn">&times;</span>
+                <h2>Add Event</h2>
+                <input type="text" id="event-title" placeholder="Event Title" />
+                <button id="save-event">Save</button>
+            </div>
+        </div>
     </main>
+    <script src="https://unpkg.com/kursor"></script>
     <script>
+        new kursor({
+            type: 1,
+            color: "#FF0000",
+            removeDefaultCursor: false,
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             const calendarDays = document.querySelector('.calendar-days');
             const monthPicker = document.getElementById('month-picker');
+            const prevMonth = document.getElementById('prev-month');
+            const nextMonth = document.getElementById('next-month');
             const prevYear = document.getElementById('prev-year');
             const nextYear = document.getElementById('next-year');
             const yearDisplay = document.getElementById('year');
+
+            const eventModal = document.getElementById('event-modal');
+            const closeBtn = document.getElementById('close-btn');
+            const saveEventBtn = document.getElementById('save-event');
+            const eventTitleInput = document.getElementById('event-title');
 
             const months = [
                 'January', 'February', 'March', 'April', 'May', 'June', 
@@ -78,13 +101,15 @@
 
             let currentMonth = new Date().getMonth();
             let currentYear = new Date().getFullYear();
+            let selectedDay = null;
+            const events = {}; // Object to store events
 
             function loadCalendar() {
                 const firstDay = new Date(currentYear, currentMonth, 1);
                 const lastDay = new Date(currentYear, currentMonth + 1, 0);
 
                 const days = [];
-                for (let i = 1; i < firstDay.getDay(); i++) {
+                for (let i = 0; i < firstDay.getDay(); i++) {
                     days.push('');
                 }
                 for (let i = 1; i <= lastDay.getDate(); i++) {
@@ -95,12 +120,60 @@
                 days.forEach(day => {
                     const dayElement = document.createElement('div');
                     dayElement.textContent = day;
+                    if (day) {
+                        dayElement.classList.add('day');
+                        dayElement.addEventListener('click', () => openEventModal(day));
+                    }
+                    if (events[`${currentYear}-${currentMonth}-${day}`]) {
+                        const eventIndicator = document.createElement('span');
+                        eventIndicator.classList.add('event-indicator');
+                        dayElement.appendChild(eventIndicator);
+                    }
                     calendarDays.appendChild(dayElement);
                 });
 
                 monthPicker.textContent = months[currentMonth];
                 yearDisplay.textContent = currentYear;
             }
+
+            function openEventModal(day) {
+                selectedDay = day;
+                eventTitleInput.value = events[`${currentYear}-${currentMonth}-${day}`] || '';
+                eventModal.style.display = 'block';
+            }
+
+            function closeEventModal() {
+                eventModal.style.display = 'none';
+            }
+
+            function saveEvent() {
+                const eventTitle = eventTitleInput.value;
+                if (eventTitle) {
+                    events[`${currentYear}-${currentMonth}-${selectedDay}`] = eventTitle;
+                } else {
+                    delete events[`${currentYear}-${currentMonth}-${selectedDay}`];
+                }
+                closeEventModal();
+                loadCalendar();
+            }
+
+            prevMonth.addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                loadCalendar();
+            });
+
+            nextMonth.addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                loadCalendar();
+            });
 
             prevYear.addEventListener('click', () => {
                 currentYear--;
@@ -111,6 +184,9 @@
                 currentYear++;
                 loadCalendar();
             });
+
+            closeBtn.addEventListener('click', closeEventModal);
+            saveEventBtn.addEventListener('click', saveEvent);
 
             loadCalendar();
         });
