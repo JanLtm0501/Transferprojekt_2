@@ -28,6 +28,8 @@ a:hover {
     color: #f1c40f;
 }
 
+
+
 /* Header */
 header {
     position: relative;
@@ -87,6 +89,8 @@ header {
     transform: scale(0.95);
 }
 
+
+
 /* Dropdown Menu */
 .dropdown_menu {
     display: none;
@@ -119,6 +123,8 @@ header {
     justify-content: center;
 }
 
+
+
 /* Hero */
 section#hero {
     height: calc(100vh - 60px); /* Höhe des Hero-Bereichs */
@@ -135,6 +141,9 @@ section#hero {
     margin-bottom: 0rem;
     text-align: center;
 }
+
+
+
 
 /* About */
 .about-container {
@@ -165,6 +174,9 @@ section#hero {
     color: #666;
 }
 
+
+
+
 /* FAQ */
 .faq-container {
     max-width: 600px;
@@ -193,6 +205,9 @@ section#hero {
     font-size: 1em;
     color: #666;
 }
+
+
+
 
 /* Impressum */
 .impressum-container {
@@ -245,6 +260,10 @@ section#hero {
         width: unset;
     }
 }
+
+
+
+
 
 
 
