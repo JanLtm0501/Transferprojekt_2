@@ -365,5 +365,44 @@ main {
 
 
 
+/*Haushaltshandbuch*/
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.fixed-expenses, .variable-expenses {
+    margin-bottom: 20px;
+}
+
+h2 {
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+form input, form select {
+    padding: 10px;
+    margin-right: 10px;
+}
+
 
 
