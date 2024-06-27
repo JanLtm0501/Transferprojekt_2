@@ -54,14 +54,13 @@
             <div class="fixed-expenses">
                 <h2>Fixe Ausgaben</h2>
                 <ul id="fixedExpensesList">
-                    <li>Versicherung: 100€</li>
-                    <li>Miete: 800€</li>
+            
                 </ul>
             </div>
             <div class="variable-expenses">
                 <h2>Variable Ausgaben</h2>
                 <ul id="variableExpensesList">
-                    <li>Einkaufen: 200€</li>
+            
                 </ul>
             </div>
         </div>
