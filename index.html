@@ -39,7 +39,7 @@
     <section id="hero">
         <div class="hero_content">
             <h1>Welcome</h1>
-            <p>Money is a platform that helps you manage your finances.</p>
+            <p>Money ist eine Webseite, die Dir hilft Deine persönlichen Sparziele zu erreichen :D.</p>
         </section>
 
     </div>
@@ -62,22 +62,22 @@
         function savingsCalculator() {
             alert("Savings plan started. Click OK to continue.");
 
-            var currentSavings = parseInt(prompt("What is your current savings amount?"));
+            var currentSavings = parseInt(prompt("Wie viel Geld hast du bereits gespart?"));
             if (isNaN(currentSavings)) {
                 return;
             }
             
-            var monthlySavings = parseInt(prompt("How much can you save monthly?"));
+            var monthlySavings = parseInt(prompt("Wieviel kannst du pro Monat sparen?"));
             if (isNaN(monthlySavings)) {
                 return;
             }
             
-            var target = prompt("What is your savings goal? (e.g., Car, Vacation, etc.)");
+            var target = prompt("Was ist Dein Sparziel? (e.g., Auto, Urlaub, etc.)");
             if (!target) {
                 return;
             }
             
-            var targetSavings = parseInt(prompt("How much money do you need for your savings goal? (in Euro)"));
+            var targetSavings = parseInt(prompt("Wieviel Geld benötigst du für Dein Sparziel?"));
             if (isNaN(targetSavings)) {
                 return;
             }
