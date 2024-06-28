@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
     <title>Haushaltsbuch</title>
+    
 </head>
 <body>
     <header>
@@ -15,11 +17,10 @@
             <ul class="links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="calender.html">Calendar</a></li>
-                <li><a href="haushaltbuch.html" class="active">Haushaltsbuch</a></li>
+                <li><a href="calendar.html">Calendar</a></li>
+                <li><a href="haushaltsbuch.html" class="active">Haushaltsbuch</a></li>
                 <li><a href="faq.html">FAQ</a></li>
                 <li><a href="impressum.html">Impressum</a></li>
-                
             </ul>
             <a href="#" class="action_btn">Get Started</a>
             <div class="toggle_btn">
@@ -30,31 +31,88 @@
         <div class="dropdown_menu">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="calender.html">Calendar</a></li>
-            <li><a href="haushaltbuch.html" class="active">Haushaltsbuch</a></li>
+            <li><a href="calendar.html">Calendar</a></li>
+            <li><a href="haushaltsbuch.html" class="active">Haushaltsbuch</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="impressum.html">Impressum</a></li>
             <li><a href="#" class="action_btn">Get Started</a></li>
         </div>
     </header>
-
-
-    </div>
-    </section>
-
-    <!-- Cursor -->
-    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
-<script src="https://unpkg.com/kursor"></script>
-<script>
-    new kursor({
-        type: 1,
-        color: "#FFFFFF",
-        removeDefaultCursor: false,	
-    })
-</script>
-
-
+    <main>
+        <div class="container">
+            <h1>Haushaltsbuch</h1>
+            <form id="expenseForm">
+                <select id="expenseType">
+                    <option value="fixed">Fixe Ausgabe</option>
+                    <option value="variable">Variable Ausgabe</option>
+                </select>
+                <input type="text" id="expenseName" placeholder="Name der Ausgabe" required>
+                <input type="number" id="expenseAmount" placeholder="Betrag in €" required>
+                <button type="submit">Hinzufügen</button>
+            </form>
+            <div class="fixed-expenses">
+                <h2>Fixe Ausgaben</h2>
+                <ul id="fixedExpensesList">
+                    
+                </ul>
+            </div>
+            <div class="variable-expenses">
+                <h2>Variable Ausgaben</h2>
+                <ul id="variableExpensesList">
+                    
+                </ul>
+            </div>
+        </div>
+    </main>
+    <script src="https://unpkg.com/kursor"></script>
     <script>
+        new kursor({
+            type: 1,
+            color: "#00FF00",
+            removeDefaultCursor: false,    
+        });
+
+        // Script to add expenses
+        document.getElementById('expenseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const expenseType = document.getElementById('expenseType').value;
+            const expenseName = document.getElementById('expenseName').value;
+            const expenseAmount = document.getElementById('expenseAmount').value;
+
+            const li = document.createElement('li');
+            li.textContent = `${expenseName}: ${expenseAmount}€`;
+
+            if (expenseType === 'fixed') {
+                document.getElementById('fixedExpensesList').appendChild(li);
+            } else {
+                document.getElementById('variableExpensesList').appendChild(li);
+            }
+
+            // Clear form fields
+            document.getElementById('expenseForm').reset();
+        });
+
+        // Toggle dropdown menu
+        const toggleBtn = document.querySelector('.toggle_btn');
+        const dropDownMenu = document.querySelector('.dropdown_menu');
+
+        toggleBtn.onclick = function () {
+            dropDownMenu.classList.toggle('open');
+        };
+
+        // Mark the active link
+        const links = document.querySelectorAll('.links a');
+        const currentLocation = location.pathname;
+
+        links.forEach(link => {
+            if (link.getAttribute('href') === currentLocation) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
         // Script Calculator
         function savingsCalculator() {
             alert("Savings plan started. Click OK to continue.");
@@ -95,25 +153,6 @@
             savingsCalculator();
         });
 
-        // Toggle dropdown menu
-        const toggleBtn = document.querySelector('.toggle_btn');
-        const dropDownMenu = document.querySelector('.dropdown_menu');
-
-        toggleBtn.onclick = function () {
-            dropDownMenu.classList.toggle('open');
-        };
-
-        // Mark the active link
-        const links = document.querySelectorAll('.links a');
-        const currentLocation = location.pathname;
-
-        links.forEach(link => {
-            if (link.getAttribute('href') === currentLocation) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
     </script>
 </body>
 </html>
