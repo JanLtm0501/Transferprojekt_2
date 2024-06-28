@@ -6,48 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css"/>
+    <!-- Cursor -->
+    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
     <title>Calendar</title>
 </head>
 <body>
     <header>
         <div class="navbar">
-            <div class="logo"><a href="index.html">Money</a></div>
+            <div class="logo"><a href="index.html">Wolfie</a></div>
             <ul class="links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="calender.html" class="active">Calendar</a></li>
+                <li><a href="calendar.html" class="active">Calendar</a></li>
                 <li><a href="haushaltbuch.html">Haushaltsbuch</a></li>
-                <li><a href="faq.html">FAQ</a></li>
                 <li><a href="impressum.html">Impressum</a></li>
+                <li><a href="faq.html">FAQ</a></li>
             </ul>
             <a href="#" class="action_btn">Get Started</a>
             <div class="toggle_btn">
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
-        
+        <!-- Dropdown-Menü hier -->
         <div class="dropdown_menu">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="calender.html" class="active">Calendar</a></li>
+            <li><a href="calendar.html" class="active">Calendar</a></li>
             <li><a href="haushaltbuch.html">Haushaltsbuch</a></li>
-            <li><a href="faq.html">FAQ</a></li>
             <li><a href="impressum.html">Impressum</a></li>
+            <li><a href="faq.html">FAQ</a></li>
         </div>
     </header>
-    
     <main>
         <div class="calendar">
             <div class="calendar-header">
+                <span class="month-change" id="prev-month">&lt;</span>
                 <span class="month-picker" id="month-picker">February</span>
+                <span class="month-change" id="next-month">&gt;</span>
                 <div class="year-picker">
-                    <span class="year-change" id="prev-year">
-                        <pre></pre>
-                    </span>
+                    <span class="year-change" id="prev-year">&lt;</span>
                     <span id="year">2024</span>
-                    <span class="year-change" id="next-year">
-                        <pre>></pre>
-                    </span>
+                    <span class="year-change" id="next-year">&gt;</span>
                 </div>
             </div>
             <div class="calendar-body">
@@ -61,29 +60,41 @@
                     <div>Sat</div>
                 </div>
                 <div class="calendar-days">
-                    
+                
                 </div>
             </div>
         </div>
+        <!-- Modal für Termineingabe -->
+        <div class="modal" id="event-modal">
+            <div class="modal-content">
+                <span class="close-btn" id="close-btn">&times;</span>
+                <h2>Add Event</h2>
+                <input type="text" id="event-title" placeholder="Event Title" />
+                <button id="save-event">Save</button>
+            </div>
+        </div>
     </main>
-
-    <!-- Cursor -->
-    <link rel="stylesheet" href="https://unpkg.com/kursor/dist/kursor.css">
-<script src="https://unpkg.com/kursor"></script>
-<script>
-	new kursor({
-		type: 1,
-		color: "#FFFFFF",
-		removeDefaultCursor: false,	
-	})
-</script>
+    <script src="https://unpkg.com/kursor"></script>
     <script>
+        new kursor({
+            type: 1,
+            color: "#FFFFFF",
+            removeDefaultCursor: false,
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             const calendarDays = document.querySelector('.calendar-days');
             const monthPicker = document.getElementById('month-picker');
+            const prevMonth = document.getElementById('prev-month');
+            const nextMonth = document.getElementById('next-month');
             const prevYear = document.getElementById('prev-year');
             const nextYear = document.getElementById('next-year');
             const yearDisplay = document.getElementById('year');
+
+            const eventModal = document.getElementById('event-modal');
+            const closeBtn = document.getElementById('close-btn');
+            const saveEventBtn = document.getElementById('save-event');
+            const eventTitleInput = document.getElementById('event-title');
 
             const months = [
                 'January', 'February', 'March', 'April', 'May', 'June', 
@@ -92,6 +103,8 @@
 
             let currentMonth = new Date().getMonth();
             let currentYear = new Date().getFullYear();
+            let selectedDay = null;
+            const events = {}; // Object to store events
 
             function loadCalendar() {
                 const firstDay = new Date(currentYear, currentMonth, 1);
@@ -109,12 +122,60 @@
                 days.forEach(day => {
                     const dayElement = document.createElement('div');
                     dayElement.textContent = day;
+                    if (day) {
+                        dayElement.classList.add('day');
+                        dayElement.addEventListener('click', () => openEventModal(day));
+                    }
+                    if (events[`${currentYear}-${currentMonth}-${day}`]) {
+                        const eventIndicator = document.createElement('span');
+                        eventIndicator.classList.add('event-indicator');
+                        dayElement.appendChild(eventIndicator);
+                    }
                     calendarDays.appendChild(dayElement);
                 });
 
                 monthPicker.textContent = months[currentMonth];
                 yearDisplay.textContent = currentYear;
             }
+
+            function openEventModal(day) {
+                selectedDay = day;
+                eventTitleInput.value = events[`${currentYear}-${currentMonth}-${day}`] || '';
+                eventModal.style.display = 'block';
+            }
+
+            function closeEventModal() {
+                eventModal.style.display = 'none';
+            }
+
+            function saveEvent() {
+                const eventTitle = eventTitleInput.value;
+                if (eventTitle) {
+                    events[`${currentYear}-${currentMonth}-${selectedDay}`] = eventTitle;
+                } else {
+                    delete events[`${currentYear}-${currentMonth}-${selectedDay}`];
+                }
+                closeEventModal();
+                loadCalendar();
+            }
+
+            prevMonth.addEventListener('click', () => {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                loadCalendar();
+            });
+
+            nextMonth.addEventListener('click', () => {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                loadCalendar();
+            });
 
             prevYear.addEventListener('click', () => {
                 currentYear--;
@@ -126,68 +187,10 @@
                 loadCalendar();
             });
 
+            closeBtn.addEventListener('click', closeEventModal);
+            saveEventBtn.addEventListener('click', saveEvent);
+
             loadCalendar();
-        });
-    </script>
-        <script>
-        // Script Calculator
-        function savingsCalculator() {
-            alert("Savings plan started. Click OK to continue.");
-
-            var currentSavings = parseInt(prompt("What is your current savings amount?"));
-            if (isNaN(currentSavings)) {
-                return;
-            }
-            
-            var monthlySavings = parseInt(prompt("How much can you save monthly?"));
-            if (isNaN(monthlySavings)) {
-                return;
-            }
-            
-            var target = prompt("What is your savings goal? (e.g., Car, Vacation, etc.)");
-            if (!target) {
-                return;
-            }
-            
-            var targetSavings = parseInt(prompt("How much money do you need for your savings goal? (in Euro)"));
-            if (isNaN(targetSavings)) {
-                return;
-            }
-
-            var months = 0;
-
-            while (currentSavings < targetSavings) {
-                currentSavings += monthlySavings;
-                months++;
-            }
-
-            alert("It will take " + months + " months to reach your savings goal: " + target + ".");
-        }
-
-        // Call the function when "Get Started" button is clicked
-        document.querySelector('.action_btn').addEventListener('click', function(e) {
-            e.preventDefault();
-            savingsCalculator();
-        });
-
-        // Toggle dropdown menu
-        const toggleBtn = document.querySelector('.toggle_btn');
-        const dropDownMenu = document.querySelector('.dropdown_menu');
-
-        toggleBtn.onclick = function () {
-            dropDownMenu.classList.toggle('open');
-        };
-
-        // Mark the active link
-        const links = document.querySelectorAll('.links a');
-        const currentLocation = location.pathname;
-
-        links.forEach(link => {
-            if (link.getAttribute('href') === currentLocation) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
         });
     </script>
 </body>
